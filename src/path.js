@@ -91,9 +91,9 @@ function pathToRegExp(path, requirements) {
         defaultParam    = trim(arr.splice(1).join('|'), ' |\\');
         regexpBase      = requirements[paramName] && String(requirements[paramName]).length ? requirements[paramName] : variableRegExp;
         routeRegExp     = util.format(variableRegExpPattern, regexpBase, defaultParam.length ? '|' + String(defaultParam) : '', '');
-        path = path.replace(new RegExp(util.format(variableNameRegExpPattern, escapeRegExp(paramName)), 'g'), routeRegExp);
+        path            = path.replace(new RegExp(util.format(variableNameRegExpPattern, escapeRegExp(paramName)), 'g'), routeRegExp);
     }
-    return path;
+    return new RegExp('^' + String(path) + (path.split('').reverse()[0] === '/' ? '?' : ''));
 }
 
 path.toRegExp = function (path, requirements) {
@@ -108,4 +108,20 @@ path.resolvePathRouteParams = function (path) {
         routeParams.push(params[i].split('|')[0]);
     }
     return routeParams;
+};
+
+path.resolveDefaultParamsValues = function (path) {
+    var params = extractRouteParamsFromPath(path, true),
+        defaults = {},
+        param,
+        value,
+        i;
+    for (i = 0; i < params.length; i++) {
+        param = params[i].split('|')[0];
+        value = trim(params[i].split('|').splice(1).join('|'));
+        if (value.length) {
+            defaults[param] = value;
+        }
+    }
+    return defaults;
 };
