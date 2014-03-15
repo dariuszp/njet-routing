@@ -20,6 +20,10 @@ route.create = function (name, path, requirements, data) {
     return route;
 };
 
-route.match = function (path, route) {
-
+route.match = function (pathname, route) {
+    pathname = String(pathname);
+    if (!route instanceof Object && route.regexp) {
+        throw new Error('Invalid route');
+    }
+    return route.regexp.test(pathname);
 };
