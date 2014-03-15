@@ -1,0 +1,29 @@
+{
+    "name": "njet-routing",
+    "version": "0.0.0",
+    "description": "Routing for njet",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha --reporter spec"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/dariuszp/njet-routing.git"
+    },
+    "keywords": [
+        "njet",
+        "routing"
+    ],
+    "author": "Półtorak Dariusz",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/dariuszp/njet-routing/issues"
+    },
+    "homepage": "https://github.com/dariuszp/njet-routing",
+    "dependencies": {
+    },
+    "devDependencies": {
+        "should": "^3.1.3",
+        "mocha": "^1.18.0"
+    }
+}
