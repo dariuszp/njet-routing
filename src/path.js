@@ -93,7 +93,7 @@ function pathToRegExp(path, requirements) {
         routeRegExp     = util.format(variableRegExpPattern, regexpBase, defaultParam.length ? '|' + String(defaultParam) : '', '');
         path            = path.replace(new RegExp(util.format(variableNameRegExpPattern, escapeRegExp(paramName)), 'g'), routeRegExp);
     }
-    return new RegExp('^' + String(path) + (path.split('').reverse()[0] === '/' ? '?' : ''));
+    return new RegExp('^' + String(path) + (path.split('').reverse()[0] === '/' ? '?$' : '$'));
 }
 
 path.toRegExp = function (path, requirements) {

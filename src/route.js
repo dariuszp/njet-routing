@@ -8,16 +8,14 @@ module.exports = route = {};
 
 
 route.create = function (name, path, requirements, data) {
-    var route = {};
-    route[name] = {
-        name: name,
-        path: path,
+    return {
+        name: String(name),
+        path: String(path),
         regexp: pathInterpreter.toRegExp(path, requirements || {}),
         params: pathInterpreter.resolvePathRouteParams(path),
         defaults: pathInterpreter.resolveDefaultParamsValues(path),
         data: data || {}
     };
-    return route;
 };
 
 route.match = function (pathname, route) {
@@ -26,4 +24,8 @@ route.match = function (pathname, route) {
         throw new Error('Invalid route');
     }
     return route.regexp.test(pathname);
+};
+
+route.generate = function (route, params) {
+
 };
