@@ -99,6 +99,13 @@ function VerbRegister(options) {
     this.generatePath = function (name, routeParams, verbType) {
         return routeHandler.generate(this.findByName(name, verbType), routeParams || {});
     };
+
+    this.dump = function (verbType, byName) {
+        if (!byName) {
+            return verbType ? verbs[verbType] : verbs;
+        }
+        return verbType ? verbsByName[verbType] : verbsByName;
+    };
 }
 
 module.exports = {
