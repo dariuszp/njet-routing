@@ -3,7 +3,7 @@ njet-routing
 
 Routing for njet
 
-# TODO FOR 0.0.2:
+# TODO FOR 0.0.3:
 - route matching should provide extended object
 ```
     {
