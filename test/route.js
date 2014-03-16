@@ -28,7 +28,7 @@ describe('route', function () {
     });
 
     describe('.generate()', function () {
-        var newRoute = route.create('user_profile', '/user/{slug}/{page}/', {
+        var newRoute = route.create('user_profile', '/user/{slug|półtorak dariusz!}/{page}/', {
             page: '[0-9+]'
         });
 
@@ -37,6 +37,10 @@ describe('route', function () {
                 slug: 'masta-blasta',
                 page: 5
             }).should.equal('/user/masta-blasta/5/');
+        });
+
+        it('should have default value "półtorak dariusz!" for slug', function () {
+            newRoute.defaults.slug.should.equal('półtorak dariusz!');
         });
     });
 });

@@ -10,9 +10,9 @@ Path converter turn any path into proper regexp
 
 var util = require('util'),
     path,
-    variableNameRegExp                      = /\\\{ *([a-zA-Z]+[a-zA-Z0-9_\\| ]*) *\\\}/g,
-    variableNameRegExpPattern               = '\\\\{ *%s[a-zA-Z0-9_\\\\| ]* *\\\\}',
-    variableNameRegExpPatternForNotEscaped  = '\\{ *%s[a-zA-Z0-9_| ]* *\\}',
+    variableNameRegExp                      = /\\\{ *([a-zA-Z]+)(\\\|([^\/}]+))? *\\\}/g,
+    variableNameRegExpPattern               = '\\\\{ *%s(\\\\|([^\/}]+))? *\\\\}',
+    variableNameRegExpPatternForNotEscaped  = '\\{ *%s(\\|([^\/}]+))? *\\}',
     variableRegExp = '[^\\/]+',
     variableRegExpPattern = '(%s%s)%s';
 
@@ -52,8 +52,12 @@ function trim(str, charlist) {
     return whitespace.indexOf(str.charAt(0)) === -1 ? str : '';
 }
 
-function escapeRegExp(string){
+function escapeRegExp(string) {
     return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function unEscapeRegExp(string) {
+    return string.replace(/\\([.*+?^=!:${}()|\[\]\/\\])/g, "$1");
 }
 
 function extractRouteParamsFromPath(path, isNotEscaped) {
@@ -66,7 +70,7 @@ function extractRouteParamsFromPath(path, isNotEscaped) {
 
     if (match) {
         for (i = 0; i < match.length; i++) {
-            routeParams.push(trim(match[i], '{}|\\ ').replace(/\s+/, '').replace('\\|', '|'));
+            routeParams.push(trim(match[i], '{}|\\ ').replace(/^\s+/, '').replace(/\s+$/, '').replace('\\|', '|'));
         }
     }
     return routeParams;
@@ -123,7 +127,7 @@ path.resolveDefaultParamsValues = function (path) {
         param = params[i].split('|')[0];
         value = trim(params[i].split('|').splice(1).join('|'));
         if (value.length) {
-            defaults[param] = value;
+            defaults[param] = unEscapeRegExp(value);
         }
     }
     return defaults;
