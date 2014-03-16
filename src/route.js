@@ -27,5 +27,27 @@ route.match = function (pathname, route) {
 };
 
 route.generate = function (route, params) {
+    if (route.params.length === 0) {
+        return route.path;
+    }
+    params = params || {};
 
+    var path = route.path,
+        i,
+        value,
+        param;
+    for (i = 0; i < route.params.length; i++) {
+        param = route.params[i];
+        if (params[param]) {
+            value = String(params[param]);
+        } else {
+            if (route.defaults[param]) {
+                value = String(route.defaults[param]);
+            } else {
+                throw new Error('Value for param "' + param + '" is missing');
+            }
+        }
+        path = pathInterpreter.replaceRouteParamByName(path, param, value);
+    }
+    return path;
 };

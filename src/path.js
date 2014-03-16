@@ -5,12 +5,14 @@ Path converter turn any path into proper regexp
  */
 
 // TODO: check route params from last to first. If delimeter "/" can be omitted, add ?. Same with route params. Default params should be omitted. Try to look out for params from last to first and check if next param is omited or there is only "/" after it
+// TODO: we should allow ANY default parameter. Fix variableNameRegExpPattern and variableNameRegExp
 
 
 var util = require('util'),
     path,
-    variableNameRegExp = /\\\{ *([a-zA-Z]+[a-zA-Z0-9_\\| ]*) *\\\}/g,
-    variableNameRegExpPattern = '\\\\{ *%s[a-zA-Z0-9_\\\\| ]* *}',
+    variableNameRegExp                      = /\\\{ *([a-zA-Z]+[a-zA-Z0-9_\\| ]*) *\\\}/g,
+    variableNameRegExpPattern               = '\\\\{ *%s[a-zA-Z0-9_\\\\| ]* *\\\\}',
+    variableNameRegExpPatternForNotEscaped  = '\\{ *%s[a-zA-Z0-9_| ]* *\\}',
     variableRegExp = '[^\\/]+',
     variableRegExpPattern = '(%s%s)%s';
 
@@ -67,9 +69,10 @@ function extractRouteParamsFromPath(path, isNotEscaped) {
             routeParams.push(trim(match[i], '{}|\\ ').replace(/\s+/, '').replace('\\|', '|'));
         }
     }
-
     return routeParams;
 }
+
+extractRouteParamsFromPath('/user/{slug|darek}/{page}', true);
 
 function pathToRegExp(path, requirements) {
     path = escapeRegExp(String(path));
@@ -124,4 +127,11 @@ path.resolveDefaultParamsValues = function (path) {
         }
     }
     return defaults;
+};
+
+path.replaceRouteParamByName = function (path, name, value) {
+    path = String(path);
+    name = escapeRegExp(String(name));
+    var regexp = new RegExp(util.format(variableNameRegExpPatternForNotEscaped, escapeRegExp(name)), 'g');
+    return path.replace(regexp, value);
 };
