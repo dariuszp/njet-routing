@@ -3,6 +3,20 @@ njet-routing
 
 Routing for njet
 
+# TODO FOR 0.0.3:
+- route matching should provide extended object
+```
+    {
+        route: [matched route],
+        routeParams: {}, // arguments defined in route
+        queryParams: {}, // arguments from query
+        params: {}, // all arguments - route params are more important than query params
+    }
+```
+- router matching should strip baseUrl
+- marching should work against full url
+- optional arguments at the end of url could be omitted
+
 ##VERBS
 
 ```JavaScript
