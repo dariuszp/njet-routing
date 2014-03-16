@@ -57,4 +57,10 @@ describe('router', function () {
             }, true).should.equal('https://dariuszp.com/my/base/user/dariuszp?age=26');
         });
     });
+
+    describe('.match()', function () {
+        it('should match path "/user/dariuszp?age=26"', function () {
+            router.post.match('/user/dariuszp?age=26').should.be.instanceOf(Object);
+        });
+    });
 });

@@ -75,7 +75,7 @@ function VerbRegister(options) {
         return route;
     };
 
-    this.math = function (path, verbType) {
+    this.match = function (path, verbType) {
         var route = false,
             i;
         if (verbType) {

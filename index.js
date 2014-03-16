@@ -64,12 +64,12 @@ function Router(options) {
         return base + path;
     };
 
-    this.match = function (path) {
-        return register.match(path);
+    this.match = function (path, method) {
+        return register.match(path, method);
     };
 
-    this.dump = function (name, verbType) {
-        return register.dump(name, verbType);
+    this.dump = function (name, method) {
+        return register.dump(name, method);
     }
 
     /**
@@ -87,6 +87,9 @@ function Router(options) {
             },
             get: function (name) {
                 return register.findByName(name, verb);
+            },
+            match: function (path) {
+                return self.match(path, verb);
             }
         };
     }

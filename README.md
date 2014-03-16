@@ -105,3 +105,19 @@ This will generate:
 ```
 https://dariuszp.com/my/new/user/superman?age=26
 ```
+
+###MATCHING
+
+To find out if your path match any route, use match for any method (verbs):
+
+```JavaScript
+router.post.match('/user/superman?age=26');
+```
+
+.match() return either false or route object
+
+###Debugging
+
+To get all routes, use .dump(method = false, byName = false) method. Dump accept two arguments:
+- method - dump only specific methods
+- byName - dump routes with names as keys
