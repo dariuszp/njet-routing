@@ -68,4 +68,34 @@ describe('route', function () {
             }).should.equal('/user/dariusz/5/?name=darek&surname=');
         });
     });
+
+    describe('.match()', function () {
+        var testRoute = route.create('test', '/user/{id}/{name|empty-name}', { id: '[0-9]+' });
+        it('should not match given query', function () {
+            route.match('/user/darius/tester?id=5', testRoute);
+        });
+        it('should return all params for pathname "/user/4/empty-name?id=5"', function () {
+            var match = route.match('/user/4/empty-name?id=5', testRoute);
+
+            match.should.be.instanceOf(Object);
+
+            match.should.have.property('route');
+            match.should.have.property('routeParams');
+            match.should.have.property('queryParams');
+            match.should.have.property('params');
+
+            match.routeParams.should.have.property('id');
+            match.routeParams.should.have.property('name');
+
+            match.queryParams.should.have.property('id');
+            match.queryParams.should.not.have.property('name');
+
+            match.routeParams.name.should.equal('empty-name');
+            match.routeParams.id.should.equal("4");
+            match.queryParams.id.should.equal("5");
+
+            match.params.name.should.equal('empty-name');
+            match.params.id.should.equal("4");
+        });
+    });
 });

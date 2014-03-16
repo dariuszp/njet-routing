@@ -3,18 +3,7 @@ njet-routing
 
 Routing for njet
 
-# TODO FOR 0.0.3:
-- route matching should provide extended object
-```
-    {
-        route: [matched route],
-        routeParams: {}, // arguments defined in route
-        queryParams: {}, // arguments from query
-        params: {}, // all arguments - route params are more important than query params
-    }
-```
-- router matching should strip baseUrl
-- marching should work against full url
+# TODO FOR 1.1.0:
 - optional arguments at the end of url could be omitted
 
 ##VERBS
@@ -128,7 +117,11 @@ To find out if your path match any route, use match for any method (verbs):
 router.post.match('/user/superman?age=26');
 ```
 
-.match() return either false or route object
+.match() return either false or result object. Result object have properties:
+- route - route object
+- routeParams - route in path extracted from given pattern
+- queryParams - params from query string
+- params - all params but *be aware* that if route param name match query param name, route param takes priority
 
 ###Debugging
 
