@@ -52,6 +52,49 @@ function Router(options) {
     this.getBaseUrl = function () {
         return baseUrl;
     };
+
+    this.generateUrl = function (name, routeParams, method, isAbsolute) {
+        var path = verbRegister.generatePath(name, routeParams, method),
+            base = '';
+
+        if (isAbsolute) {
+            base = util.format(urlBase, scheme, host, baseUrl);
+        }
+        return base + path;
+    };
+
+    this.match = function (path) {
+        return register.match(path);
+    };
+
+    /**
+     * Create setter for VERB methods
+     * @param name
+     * @returns {Function}
+     */
+    function createVerbSetter(verb) {
+        return {
+            add: function (name, path, requirements, data) {
+                return register[verb](name, path, requirements, data);
+            },
+            generate: function (name, routeParams, isAbsolute) {
+                return this.generateUrl(name, routeParams, verb, isAbsolute);
+            },
+            get: function (name) {
+                return register.findByName(name, verb);
+            }
+        };
+    }
+
+    this.get = createVerbSetter('get');
+    this.post = createVerbSetter('post');
+    this.put = createVerbSetter('put');
+    this['delete'] = createVerbSetter('delete');
+    this.options = createVerbSetter('options');
+    this.head = createVerbSetter('head');
+    this.trace = createVerbSetter('trace');
+    this.connect = createVerbSetter('connect');
+    this.any = createVerbSetter('any');
 }
 
 module.exports = {
