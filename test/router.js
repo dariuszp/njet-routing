@@ -47,4 +47,14 @@ describe('router', function () {
             }).should.throw();
         });
     });
+
+    describe('.setScheme() .setHost() .setBaseUrl()', function () {
+        it('should generate url "https://dariuszp.com/my/base/user/dariuszp?age=26"', function () {
+            router.setScheme('https').setHost('dariuszp.com').setBaseUrl('my/base');
+            router.post.generate('create_user', {
+                username: 'dariuszp',
+                age: 26
+            }, true).should.equal('https://dariuszp.com/my/base/user/dariuszp?age=26');
+        });
+    });
 });
