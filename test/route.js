@@ -52,5 +52,13 @@ describe('route', function () {
                 name: 'darek'
             }).should.equal('/user/masta-blasta/5/?name=darek');
         });
+        it('should add additional query string "name=darek&surname=" to path', function () {
+            route.generate(newRoute, {
+                slug: 'masta-blasta',
+                page: 5,
+                surname: '',
+                name: 'darek',
+            }).should.equal('/user/masta-blasta/5/?name=darek&surname=');
+        });
     });
 });
