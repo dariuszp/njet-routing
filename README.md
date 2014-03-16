@@ -53,7 +53,7 @@ var route = router.post.get('create_user')
 To generate url based on route name and arguments, use:
 
 ```JavaScript
-var route = router.post.get('create_user', {
+var route = router.post.generate('create_user', {
     type: 'superman',
     age: 26
 })
