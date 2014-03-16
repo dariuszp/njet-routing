@@ -102,9 +102,9 @@ function VerbRegister(options) {
 
     this.dump = function (verbType, byName) {
         if (!byName) {
-            return verbType ? verbs[verbType] : verbs;
+            return verbType ? verbs[verbType] || {} : verbs;
         }
-        return verbType ? verbsByName[verbType] : verbsByName;
+        return verbType ? verbsByName[verbType] || {} : verbsByName;
     };
 }
 

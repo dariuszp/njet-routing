@@ -1,10 +1,10 @@
 'use strict';
 
 var verbRegister    = require(__dirname + '/src/verbRegister.js'),
-    routeHandler    = require(__dirname + '/src/routeHandler.js'),
-    pathHandler     = require(__dirname + '/src/pathHandler.js'),
+    routeHandler    = require(__dirname + '/src/route.js'),
+    pathHandler     = require(__dirname + '/src/path.js'),
     util            = require('util'),
-    tools           = require('tools'),
+    tools           = require(__dirname + '/src/tools.js'),
     urlBase         = '%s://%s%s';
 
 function Router(options) {
@@ -12,7 +12,8 @@ function Router(options) {
         return new Router(options);
     }
 
-    var register = verbRegister.create(),
+    var self = this,
+        register = verbRegister.create(),
         scheme = 'http',
         host = 'localhost',
         baseUrl = '';
@@ -54,7 +55,7 @@ function Router(options) {
     };
 
     this.generateUrl = function (name, routeParams, method, isAbsolute) {
-        var path = verbRegister.generatePath(name, routeParams, method),
+        var path = register.generatePath(name, routeParams, method),
             base = '';
 
         if (isAbsolute) {
@@ -67,6 +68,10 @@ function Router(options) {
         return register.match(path);
     };
 
+    this.dump = function (name, verbType) {
+        return register.dump(name, verbType);
+    }
+
     /**
      * Create setter for VERB methods
      * @param name
@@ -78,7 +83,7 @@ function Router(options) {
                 return register[verb](name, path, requirements, data);
             },
             generate: function (name, routeParams, isAbsolute) {
-                return this.generateUrl(name, routeParams, verb, isAbsolute);
+                return self.generateUrl(name, routeParams, verb, isAbsolute);
             },
             get: function (name) {
                 return register.findByName(name, verb);
