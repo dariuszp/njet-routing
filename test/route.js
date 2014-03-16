@@ -30,7 +30,7 @@ describe('route', function () {
     });
 
     describe('.generate()', function () {
-        var newRoute = route.create('user_profile', '/user/{slug|półtorak dariusz!}/{page}/', {
+        var newRoute = route.create('user_profile', '/user/{slug|dariusz}/{page}/', {
             page: '[0-9+]'
         });
 
@@ -42,7 +42,7 @@ describe('route', function () {
         });
 
         it('should have default value "półtorak dariusz!" for slug', function () {
-            newRoute.defaults.slug.should.equal('półtorak dariusz!');
+            newRoute.defaults.slug.should.equal('dariusz');
         });
 
         it('should add additional query string "name=darek" to path', function () {
@@ -59,6 +59,13 @@ describe('route', function () {
                 surname: '',
                 name: 'darek',
             }).should.equal('/user/masta-blasta/5/?name=darek&surname=');
+        });
+        it('should use default arguments when generating route without giving it params', function () {
+            route.generate(newRoute, {
+                page: 5,
+                surname: '',
+                name: 'darek'
+            }).should.equal('/user/dariusz/5/?name=darek&surname=');
         });
     });
 });
