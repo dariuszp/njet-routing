@@ -32,6 +32,9 @@ route.match = function (pathname, route) {
 };
 
 route.generate = function (route, params) {
+    if (!(route && route instanceof Object)) {
+        throw new Error('Invalid route: ' + String(route));
+    }
     if (route.params.length === 0) {
         return route.path;
     }
@@ -49,7 +52,7 @@ route.generate = function (route, params) {
             if (route.defaults[param]) {
                 value = String(route.defaults[param]);
             } else {
-                throw new Error('Value for param "' + param + '" is missing');
+                throw new Error('Value for param "' + String(param) + '" in route "' + String(route.name) + '" is missing');
             }
         }
         path = pathInterpreter.replaceRouteParamByName(path, param, value);
