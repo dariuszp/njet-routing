@@ -1,7 +1,9 @@
 'use strict';
 
 var util                = require('util'),
+    url                 = require('url'),
     pathInterpreter     = require(__dirname + '/path.js'),
+    querystring         = require('querystring'),
     querystring         = require('querystring'),
     route;
 
@@ -26,10 +28,35 @@ route.create = function (name, path, requirements, data, method) {
 
 route.match = function (pathname, route) {
     pathname = String(pathname);
-    if (!route instanceof Object && route.regexp) {
+    if (!(route instanceof Object && route.regexp)) {
         throw new Error('Invalid route');
     }
-    return route.regexp.test(pathname);
+    var parsedUrl = url.parse(pathname),
+        match = String(parsedUrl.pathname || '').match(route.regexp),
+        result,
+        i,
+        param,
+        value;
+
+    if (!match) {
+        return false;
+    }
+
+    result = {
+        route: route,
+        queryParams: querystring.parse(parsedUrl.query || '') || {},
+        routeParams: {},
+        params: querystring.parse(parsedUrl.query || '') || {}
+    };
+
+    for (i = 0; i < route.params.length; i++) {
+        param = route.params[i];
+        value = match[i + 1];
+        result.routeParams[param] = value;
+        result.params[param] = value;
+    }
+
+    return result;
 };
 
 route.generate = function (route, routeParams) {
@@ -45,7 +72,6 @@ route.generate = function (route, routeParams) {
         i,
         value,
         param,
-        usedParams = [],
         query;
 
     for (i = 0; i < route.params.length; i++) {
