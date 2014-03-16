@@ -1,9 +1,9 @@
-njet-routing
-============
+njet-routing [![Build Status](https://travis-ci.org/dariuszp/njet-routing.png?branch=master)](https://travis-ci.org/dariuszp/njet-routing)
+===
 
 Routing for njet
 
-# TODO FOR 1.1.0:
+## TODO FOR 1.1.0:
 - optional arguments at the end of url could be omitted
 
 ##VERBS
