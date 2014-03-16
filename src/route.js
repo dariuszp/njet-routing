@@ -7,10 +7,15 @@ var util = require('util'),
 module.exports = route = {};
 
 
-route.create = function (name, path, requirements, data) {
+route.create = function (name, path, requirements, data, method) {
+    if (!method) {
+        method = 'get';
+    }
+    method = String(method).toLowerCase();
     return {
         name: String(name),
         path: String(path),
+        method: method,
         regexp: pathInterpreter.toRegExp(path, requirements || {}),
         params: pathInterpreter.resolvePathRouteParams(path),
         defaults: pathInterpreter.resolveDefaultParamsValues(path),

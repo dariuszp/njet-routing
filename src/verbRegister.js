@@ -2,7 +2,10 @@
 
 var routeHandler = require(__dirname + '/route.js');
 
-function VerbRegister() {
+function VerbRegister(options) {
+    if (!(this instanceof VerbRegister)) {
+        return new VerbRegister(options);
+    }
 
     /**
      * HTTP methods with routes assigned to them
@@ -25,7 +28,7 @@ function VerbRegister() {
      */
     function createVerbSetter(verb) {
         return function (name, path, requirements, data) {
-            var route = routeHandler.create(name, path, requirements, data);
+            var route = routeHandler.create(name, path, requirements, data, verb.toLowerCase());
 
             if (!verbs[verb]) {
                 verbs[verb] = [];
@@ -91,6 +94,10 @@ function VerbRegister() {
             }
         }
         return route;
+    };
+
+    this.generatePath = function (name, requirements, verbType) {
+        return routeHandler.generate(this.findByName(name, verbType), requirements || {});
     };
 }
 

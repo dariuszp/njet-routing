@@ -14,6 +14,7 @@ describe('route', function () {
             newRoute.should.be.instanceOf(Object);
             newRoute.should.have.property('name').and.be.instanceOf(String);
             newRoute.should.have.property('path').and.be.instanceOf(String);
+            newRoute.should.have.property('method').and.be.instanceOf(String);
             newRoute.should.have.property('regexp').and.be.instanceOf(RegExp);
             newRoute.should.have.property('params').and.be.instanceOf(Array);
             newRoute.should.have.property('defaults').and.be.instanceOf(Object);
@@ -21,6 +22,7 @@ describe('route', function () {
         });
         it('should math path "/test/5/2"', function () {
             route.match('/test/5/2', newRoute).should.be.ok;
+            route.match('/test/5/2/', newRoute).should.not.be.ok;
             route.match('/test/test', newRoute).should.not.be.ok;
             route.match('/test/test/2', newRoute).should.not.be.ok;
             route.match('/test/test/test', newRoute).should.not.be.ok;
