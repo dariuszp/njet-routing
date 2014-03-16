@@ -44,5 +44,13 @@ describe('route', function () {
         it('should have default value "półtorak dariusz!" for slug', function () {
             newRoute.defaults.slug.should.equal('półtorak dariusz!');
         });
+
+        it('should add additional query string "name=darek" to path', function () {
+            route.generate(newRoute, {
+                slug: 'masta-blasta',
+                page: 5,
+                name: 'darek'
+            }).should.equal('/user/masta-blasta/5/?name=darek');
+        });
     });
 });
