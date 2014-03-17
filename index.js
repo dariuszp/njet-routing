@@ -70,7 +70,7 @@ function Router(options) {
 
     this.dump = function (name, method) {
         return register.dump(name, method);
-    }
+    };
 
     /**
      * Create setter for VERB methods

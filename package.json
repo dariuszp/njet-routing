@@ -1,7 +1,7 @@
 {
     "name": "njet-routing",
-    "version": "1.0.1",
-    "description": "Routing for njet",
+    "version": "1.0.2",
+    "description": "njet-routing - router for any http server",
     "main": "index.js",
     "scripts": {
         "test": "mocha --reporter spec"
@@ -12,7 +12,9 @@
     },
     "keywords": [
         "njet",
-        "routing"
+        "routing",
+        "router",
+        "http"
     ],
     "author": "Półtorak Dariusz",
     "license": "MIT",

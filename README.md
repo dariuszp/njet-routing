@@ -6,6 +6,11 @@ Routing for njet
 ## TODO FOR 1.1.0:
 - optional arguments at the end of url could be omitted
 
+## CHANGES 1.0.2
+- {verb}.match() fixed and now returning proper object
+- simple test for HTTP server added
+- some small fixes
+
 ##VERBS
 
 ```JavaScript

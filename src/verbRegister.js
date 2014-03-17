@@ -80,15 +80,13 @@ function VerbRegister(options) {
             i;
         if (verbType) {
             for (i = 0; i < verbs[verbType].length; i++) {
-                if (routeHandler.match(path, verbs[verbType][i])) {
-                    route = verbs[verbType][i];
+                if ((route = routeHandler.match(path, verbs[verbType][i])) !== false) {
                     break;
                 }
             }
         } else {
             for (i = 0; i < allRoutes.length; i++) {
-                if (routeHandler.match(path, allRoutes[i])) {
-                    route = allRoutes[i];
+                if ((route = routeHandler.match(path, allRoutes[i])) !== false) {
                     break;
                 }
             }
