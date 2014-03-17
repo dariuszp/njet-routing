@@ -60,7 +60,14 @@ describe('router', function () {
 
     describe('.match()', function () {
         it('should match path "/user/dariuszp?age=26"', function () {
-            router.post.match('/user/dariuszp?age=26').should.be.instanceOf(Object);
+            var match = router.post.match('/user/dariuszp?age=26');
+            match.should.be.instanceOf(Object);
+            match.should.have.property('route');
+            match.should.have.property('routeParams');
+            match.should.have.property('queryParams');
+            match.should.have.property('params');
+
+            match.route.should.have.property('name');
         });
     });
 });
