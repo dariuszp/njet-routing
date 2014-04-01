@@ -48,13 +48,52 @@ describe('router', function () {
         });
     });
 
-    describe('.setScheme() .setHost() .setBaseUrl()', function () {
+    describe('.setScheme() .setHost() .setBaseUrl() .setPort() .forcePortInUrl()', function () {
         it('should generate url "https://dariuszp.com/my/base/user/dariuszp?age=26"', function () {
             router.setScheme('https').setHost('dariuszp.com').setBaseUrl('my/base');
             router.post.generate('create_user', {
                 username: 'dariuszp',
                 age: 26
             }, true).should.equal('https://dariuszp.com/my/base/user/dariuszp?age=26');
+        });
+
+        it('should add port 8080 to url', function () {
+            router.setPort(8080);
+            router.post.generate('create_user', {
+                username: 'dariuszp',
+                age: 26
+            }, true).should.equal('https://dariuszp.com:8080/my/base/user/dariuszp?age=26');
+        });
+
+        it('should NOT add port 80 to url', function () {
+            router.setPort(80);
+            router.post.generate('create_user', {
+                username: 'dariuszp',
+                age: 26
+            }, true).should.equal('https://dariuszp.com/my/base/user/dariuszp?age=26');
+        });
+
+        it('should add port 80 to url with .forcePortInUrl(true)', function () {
+            router.forcePortInUrl(true);
+            router.post.generate('create_user', {
+                username: 'dariuszp',
+                age: 26
+            }, true).should.equal('https://dariuszp.com:80/my/base/user/dariuszp?age=26');
+        });
+
+        it('should NOT add port 80 to url with .forcePortInUrl(false)', function () {
+            router.forcePortInUrl(false);
+            router.post.generate('create_user', {
+                username: 'dariuszp',
+                age: 26
+            }, true).should.equal('https://dariuszp.com/my/base/user/dariuszp?age=26');
+        });
+
+        it('should change port only for this route', function () {
+            router.post.generate('create_user', {
+                username: 'dariuszp',
+                age: 26
+            }, true, 8983).should.equal('https://dariuszp.com:8983/my/base/user/dariuszp?age=26');
         });
     });
 
