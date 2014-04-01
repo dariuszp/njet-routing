@@ -5,7 +5,7 @@ var verbRegister    = require(__dirname + '/src/verbRegister.js'),
     pathHandler     = require(__dirname + '/src/path.js'),
     util            = require('util'),
     tools           = require(__dirname + '/src/tools.js'),
-    urlBase         = '%s://%s%s';
+    urlBase         = '%s://%s%s%s';
 
 function Router(options) {
     if (!(this instanceof Router)) {
@@ -16,7 +16,9 @@ function Router(options) {
         register = verbRegister.create(),
         scheme = 'http',
         host = 'localhost',
-        baseUrl = '';
+        port = 80,
+        baseUrl = '',
+        forcePortInUrl = false;
 
     this.setScheme = function (newScheme) {
         scheme = tools.trim(newScheme);
@@ -34,6 +36,19 @@ function Router(options) {
 
     this.getHost = function () {
         return host;
+    };
+
+    this.setPort = function (newPort) {
+        port = parseInt(newPort, 10);
+        return this;
+    };
+
+    this.getPort = function () {
+        return port;
+    };
+
+    this.forcePortInUrl = function (force) {
+        forcePortInUrl = force ? true : false;
     };
 
     this.setBaseUrl = function (newBaseUrl) {
@@ -54,12 +69,16 @@ function Router(options) {
         return baseUrl;
     };
 
-    this.generateUrl = function (name, routeParams, method, isAbsolute) {
+    this.generateUrl = function (name, routeParams, method, isAbsolute, urlPort) {
+        method = method || 'get';
+        urlPort = urlPort || port;
+        urlPort = parseInt(urlPort, 10);
+
         var path = register.generatePath(name, routeParams, method),
             base = '';
 
         if (isAbsolute) {
-            base = util.format(urlBase, scheme, host, baseUrl);
+            base = util.format(urlBase, scheme, host, ((urlPort !== 80 || forcePortInUrl) ? ':' + String(urlPort) : ''), baseUrl);
         }
         return base + path;
     };
@@ -82,8 +101,8 @@ function Router(options) {
             add: function (name, path, requirements, data) {
                 return register[verb](name, path, requirements, data);
             },
-            generate: function (name, routeParams, isAbsolute) {
-                return self.generateUrl(name, routeParams, verb, isAbsolute);
+            generate: function (name, routeParams, isAbsolute, port) {
+                return self.generateUrl(name, routeParams, verb, isAbsolute, port);
             },
             get: function (name) {
                 return register.findByName(name, verb);

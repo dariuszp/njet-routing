@@ -3,8 +3,14 @@ njet-routing [![Build Status](https://travis-ci.org/dariuszp/njet-routing.png?br
 
 Routing for njet
 
-## CHANGES 1.1.0
+## CHANGES 1.1.1
 - order for query string is alphabetical so providing parameters in different order wont change url
+- route can now specify port by either router.setPort() or by providing 4th argument to .generate()
+```JavaScript
+router.post.generate('my_route', {}, true, 8983); // http://example.com:8983
+```
+
+if for some reason you need to force port 80 in url, just set .forcePortInUrl(true) or false to disable
 
 ##VERBS
 
