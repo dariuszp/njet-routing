@@ -3,6 +3,7 @@
 var util                = require('util'),
     url                 = require('url'),
     pathInterpreter     = require(__dirname + '/path.js'),
+    tools               = require(__dirname + '/tools.js'),
     querystring         = require('querystring'),
     querystring         = require('querystring'),
     route;
@@ -88,6 +89,7 @@ route.generate = function (route, routeParams) {
         delete params[param];
         path = pathInterpreter.replaceRouteParamByName(path, param, value);
     }
+    params = tools.sortObject(params);
     query = querystring.stringify(params);
     return String(path) + (query && query.length ? '?' + String(query) : '');
 };
