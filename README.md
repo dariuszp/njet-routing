@@ -3,13 +3,8 @@ njet-routing [![Build Status](https://travis-ci.org/dariuszp/njet-routing.png?br
 
 Routing for njet
 
-## TODO FOR 1.1.0:
-- optional arguments at the end of url could be omitted
-
-## CHANGES 1.0.2
-- {verb}.match() fixed and now returning proper object
-- simple test for HTTP server added
-- some small fixes
+## CHANGES 1.1.0
+- order for query string is alphabetical so providing parameters in different order wont change url
 
 ##VERBS
 
@@ -127,6 +122,9 @@ router.post.match('/user/superman?age=26');
 - routeParams - route in path extracted from given pattern
 - queryParams - params from query string
 - params - all params but *be aware* that if route param name match query param name, route param takes priority
+
+By aware that match will check either specific verb routes or all routes. ANY is just another group of routes.
+Matching will not check any at any point. Programmer need to do it himself/herself.
 
 ###Debugging
 
