@@ -38,8 +38,6 @@ function extractRouteParamsFromPath(path, isNotEscaped) {
     return routeParams;
 }
 
-extractRouteParamsFromPath('/user/{slug|darek}/{page}', true);
-
 function pathToRegExp(path, requirements) {
     path = escapeRegExp(String(path));
     if (!requirements) {
@@ -76,7 +74,7 @@ path.resolvePathRouteParams = function (path) {
     for (i = 0; i < params.length; i++) {
         routeParams.push(params[i].split('|')[0]);
     }
-    return routeParams;
+    return routeParams.sort();
 };
 
 path.resolveDefaultParamsValues = function (path) {
@@ -92,7 +90,7 @@ path.resolveDefaultParamsValues = function (path) {
             defaults[param] = unEscapeRegExp(value);
         }
     }
-    return defaults;
+    return tools.sortObject(defaults);
 };
 
 path.replaceRouteParamByName = function (path, name, value) {

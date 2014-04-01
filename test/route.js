@@ -60,6 +60,15 @@ describe('route', function () {
                 name: 'darek',
             }).should.equal('/user/masta-blasta/5/?name=darek&surname=');
         });
+        it('should add additional query string "a=1&b=2&c=3" to path', function () {
+            route.generate(newRoute, {
+                slug: 'masta-blasta',
+                page: 5,
+                b: 2,
+                c: 3,
+                a: 1
+            }).should.equal('/user/masta-blasta/5/?a=1&b=2&c=3');
+        });
         it('should use default arguments when generating route without giving it params', function () {
             route.generate(newRoute, {
                 page: 5,

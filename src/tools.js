@@ -42,8 +42,38 @@ function unEscapeRegExp(string) {
     return string.replace(/\\([.*+?^=!:${}()|\[\]\/\\])/g, "$1");
 }
 
+function sortObject(obj, descending) {
+    if (!(obj instanceof Object)) {
+        throw new Error('You can only sort objects');
+    }
+
+    var sortedObj = {},
+        params = [],
+        key,
+        i;
+
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            params.push(key);
+        }
+    }
+
+    params.sort();
+    if (descending) {
+        params.reverse();
+    }
+
+    for (i = 0; i < params.length; i++) {
+        key = params[i];
+        sortedObj[key] = obj[key];
+    }
+
+    return sortedObj;
+}
+
 module.exports = {
     trim: trim,
     escapeRegExp: escapeRegExp,
-    unEscapeRegExp: unEscapeRegExp
+    unEscapeRegExp: unEscapeRegExp,
+    sortObject: sortObject
 };
