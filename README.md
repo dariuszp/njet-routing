@@ -1,6 +1,8 @@
 njet-routing [![Build Status](https://travis-ci.org/dariuszp/njet-routing.png?branch=master)](https://travis-ci.org/dariuszp/njet-routing)
 ===
 
+
+
 ###REQUEST METHODS
 
 ```JavaScript
@@ -18,6 +20,8 @@ You can use following methods methods:
 - trace
 - connect
 - any (custom, when request method is not specified)
+
+
 
 ###ADD ROUTE
 
@@ -59,6 +63,8 @@ router.post.add('create_user', '/user/{type | super me}', {
 })
 ```
 
+
+
 ###GET ROUTE
 
 To retreive route, use get() method:
@@ -68,6 +74,8 @@ var route = router.post.get('create_user')
 ```
 
 You will have full object with all data you provided so far.
+
+
 
 ###GENERATE PATH
 
@@ -148,6 +156,8 @@ Also if all your routes should have custom port, simply use:
 .setPort(8983); // for example port 8983
 ```
 
+
+
 ###MATCHING
 
 To find out if your path match any route, use match for any method (verbs):
@@ -164,6 +174,8 @@ router.post.match('/user/superman?age=26');
 
 By aware that match will check either specific verb routes or all routes. ANY is just another group of routes.
 Matching will not check any at any point. Programmer need to do it himself/herself.
+
+
 
 ###DEBUGGING
 
