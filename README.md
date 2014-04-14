@@ -1,7 +1,13 @@
 njet-routing [![Build Status](https://travis-ci.org/dariuszp/njet-routing.png?branch=master)](https://travis-ci.org/dariuszp/njet-routing)
 ===
 
+###INSTALLATION
 
+You need Node.js and npm installed. Then you can install njet-routing using this command:
+
+```JavaScript
+npm install njet-routing
+```
 
 ###REQUEST METHODS
 
