@@ -1,61 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Njet-routing : Routing for njet" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Njet-routing by dariuszp</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Njet-routing</title>
   </head>
-
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/dariuszp/njet-routing">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/dariuszp/njet-routing/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/dariuszp/njet-routing/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/dariuszp/njet-routing">View on GitHub</a>
+    <div class="wrapper">
 
-          <h1 id="project_title">Njet-routing</h1>
-          <h2 id="project_tagline">Routing for njet</h2>
+      <section>
+        <div id="title">
+          <h1>Njet-routing</h1>
+          <p>Routing for njet</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/dariuszp">dariuszp</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/dariuszp/njet-routing/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/dariuszp/njet-routing/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
         <h1>
 <a name="njet-routing-" class="anchor" href="#njet-routing-"><span class="octicon octicon-link"></span></a>njet-routing <a href="https://travis-ci.org/dariuszp/njet-routing"><img src="https://travis-ci.org/dariuszp/njet-routing.png?branch=master" alt="Build Status"></a>
 </h1>
 
-<p>Routing for njet</p>
-
-<h2>
-<a name="changes-111" class="anchor" href="#changes-111"><span class="octicon octicon-link"></span></a>CHANGES 1.1.1</h2>
-
-<ul>
-<li>order for query string is alphabetical so providing parameters in different order wont change url</li>
-<li>route can now specify port by either router.setPort() or by providing 4th argument to .generate()</li>
-</ul><div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">generate</span><span class="p">(</span><span class="s1">'my_route'</span><span class="p">,</span> <span class="p">{},</span> <span class="kc">true</span><span class="p">,</span> <span class="mi">8983</span><span class="p">);</span> <span class="c1">// http://example.com:8983</span>
-</pre></div>
-
-<p>if for some reason you need to force port 80 in url, just set .forcePortInUrl(true) or false to disable</p>
-
-<h2>
-<a name="verbs" class="anchor" href="#verbs"><span class="octicon octicon-link"></span></a>VERBS</h2>
+<h3>
+<a name="request-methods" class="anchor" href="#request-methods"><span class="octicon octicon-link"></span></a>REQUEST METHODS</h3>
 
 <div class="highlight highlight-JavaScript"><pre><span class="kd">var</span> <span class="nx">njetRouting</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'njet-routing'</span><span class="p">),</span>
     <span class="nx">router</span> <span class="o">=</span> <span class="nx">njetRouting</span><span class="p">.</span><span class="nx">createRouter</span><span class="p">();</span>
 </pre></div>
 
-<p>You can use following verb methods:</p>
+<p>You can use following methods methods:</p>
 
 <ul>
 <li>get</li>
@@ -66,16 +60,16 @@
 <li>head</li>
 <li>trace</li>
 <li>connect</li>
-<li>any</li>
+<li>any (custom, when request method is not specified)</li>
 </ul><h3>
 <a name="add-route" class="anchor" href="#add-route"><span class="octicon octicon-link"></span></a>ADD ROUTE</h3>
 
-<p>To add route for any verb use <em>router.{verb}.add()</em> like this:</p>
+<p>To add route for any verb use <em>router.{method}.add()</em> like this:</p>
 
 <div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'create_user'</span><span class="p">,</span> <span class="s1">'/user/{type}'</span><span class="p">)</span>
 </pre></div>
 
-<p>where type is variable passed to user. Default regexp for any variable is ([^/]+).
+<p>where type is variable passed by user. Default regexp for any variable is ([^/]+).
 Variable can have default value. Define it like this:</p>
 
 <div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'create_user'</span><span class="p">,</span> <span class="s1">'/user/{type | super me}'</span><span class="p">)</span>
@@ -84,7 +78,7 @@ Variable can have default value. Define it like this:</p>
 <p>If you need specific pattern for "type", add it to third parameter - requirements:</p>
 
 <div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'create_user'</span><span class="p">,</span> <span class="s1">'/user/{type | super me}'</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">type</span><span class="o">:</span> <span class="p">[</span><span class="nx">a</span><span class="o">-</span><span class="nx">z</span><span class="p">]</span><span class="o">+</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">'[a-z]+'</span>
 <span class="p">})</span>
 </pre></div>
 
@@ -92,16 +86,31 @@ Variable can have default value. Define it like this:</p>
 
 <p>Now if "type" is not provided when generating url, default value will be "super me".</p>
 
-<h2>
-<a name="get-route" class="anchor" href="#get-route"><span class="octicon octicon-link"></span></a>GET ROUTE</h2>
+<p>Also, each route can carry data object. For example while registering route, you want to keep some informations,
+like controller name that should handle request or anything like that. If you want to have that information,
+simply add 4th parameter to .add() method like this:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">'create_user'</span><span class="p">,</span> <span class="s1">'/user/{type | super me}'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">'[a-z]+'</span>
+<span class="p">},</span> <span class="p">{</span>
+    <span class="nx">myControllerName</span><span class="o">:</span> <span class="s1">'MySuperController'</span><span class="p">,</span>
+    <span class="nx">myActionName</span><span class="o">:</span> <span class="s1">'CoolAction'</span><span class="p">,</span>
+    <span class="nx">randomStuff</span><span class="o">:</span> <span class="s1">'my dog name is Cesar'</span>
+<span class="p">})</span>
+</pre></div>
+
+<h3>
+<a name="get-route" class="anchor" href="#get-route"><span class="octicon octicon-link"></span></a>GET ROUTE</h3>
 
 <p>To retreive route, use get() method:</p>
 
 <div class="highlight highlight-JavaScript"><pre><span class="kd">var</span> <span class="nx">route</span> <span class="o">=</span> <span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'create_user'</span><span class="p">)</span>
 </pre></div>
 
-<h2>
-<a name="generate-path" class="anchor" href="#generate-path"><span class="octicon octicon-link"></span></a>GENERATE PATH</h2>
+<p>You will have full object with all data you provided so far.</p>
+
+<h3>
+<a name="generate-path" class="anchor" href="#generate-path"><span class="octicon octicon-link"></span></a>GENERATE PATH</h3>
 
 <p>To generate url based on route name and arguments, use:</p>
 
@@ -132,12 +141,15 @@ Default argument is add as alternative to regexp in requirements so both will al
 <pre><code>http://localhost/user/superman?age=26
 </code></pre>
 
+<p>Remember that all arguments added to query string are sorted alphabetically so order on argument list does not matter.</p>
+
 <p>To change scheme, base url or host, use:</p>
 
 <ul>
 <li>setHost()</li>
 <li>setScheme()</li>
 <li>setBaseUrl()</li>
+<li>setPort()</li>
 </ul><p>Like this:</p>
 
 <div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">setScheme</span><span class="p">(</span><span class="s1">'https'</span><span class="p">).</span><span class="nx">setHost</span><span class="p">(</span><span class="s1">'dariuszp.com'</span><span class="p">).</span><span class="nx">setBaseUrl</span><span class="p">(</span><span class="s1">'my/new'</span><span class="p">);</span>
@@ -150,6 +162,29 @@ Default argument is add as alternative to regexp in requirements so both will al
 <p>This will generate:</p>
 
 <pre><code>https://dariuszp.com/my/new/user/superman?age=26
+</code></pre>
+
+<p>Ad port as 4th parameter in case you want to change port for just this route:</p>
+
+<div class="highlight highlight-JavaScript"><pre><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">generate</span><span class="p">(</span><span class="s1">'create_user'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">'superman'</span><span class="p">,</span>
+    <span class="nx">age</span><span class="o">:</span> <span class="mi">26</span>
+<span class="p">},</span> <span class="kc">true</span><span class="p">,</span> <span class="mi">8983</span><span class="p">);</span>
+</pre></div>
+
+<p>This will generate:</p>
+
+<pre><code>https://dariuszp.com:8983/my/new/user/superman?age=26
+</code></pre>
+
+<p>Default port 80 is never added to route for obvious reasons. If You want port to be always visible, you can force it:</p>
+
+<pre><code>.forcePortInUrl(true)
+</code></pre>
+
+<p>Also if all your routes should have custom port, simply use:</p>
+
+<pre><code>.setPort(8983); // for example port 8983
 </code></pre>
 
 <h3>
@@ -171,7 +206,7 @@ Default argument is add as alternative to regexp in requirements so both will al
 Matching will not check any at any point. Programmer need to do it himself/herself.</p>
 
 <h3>
-<a name="debugging" class="anchor" href="#debugging"><span class="octicon octicon-link"></span></a>Debugging</h3>
+<a name="debugging" class="anchor" href="#debugging"><span class="octicon octicon-link"></span></a>DEBUGGING</h3>
 
 <p>To get all routes, use .dump(method = false, byName = false) method. Dump accept two arguments:</p>
 
@@ -180,17 +215,19 @@ Matching will not check any at any point. Programmer need to do it himself/herse
 <li>byName - dump routes with names as keys</li>
 </ul>
       </section>
-    </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Njet-routing maintained by <a href="https://github.com/dariuszp">dariuszp</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
     </div>
-
-    
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-49987464-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
 
   </body>
 </html>
