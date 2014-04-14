@@ -1,7 +1,7 @@
 njet-routing [![Build Status](https://travis-ci.org/dariuszp/njet-routing.png?branch=master)](https://travis-ci.org/dariuszp/njet-routing)
 ===
 
-##REQUEST METHODS
+###REQUEST METHODS
 
 ```JavaScript
 var njetRouting = require('njet-routing'),
@@ -59,7 +59,7 @@ router.post.add('create_user', '/user/{type | super me}', {
 })
 ```
 
-##GET ROUTE
+###GET ROUTE
 
 To retreive route, use get() method:
 
@@ -69,7 +69,7 @@ var route = router.post.get('create_user')
 
 You will have full object with all data you provided so far.
 
-##GENERATE PATH
+###GENERATE PATH
 
 To generate url based on route name and arguments, use:
 
@@ -165,7 +165,7 @@ router.post.match('/user/superman?age=26');
 By aware that match will check either specific verb routes or all routes. ANY is just another group of routes.
 Matching will not check any at any point. Programmer need to do it himself/herself.
 
-###Debugging
+###DEBUGGING
 
 To get all routes, use .dump(method = false, byName = false) method. Dump accept two arguments:
 - method - dump only specific methods
