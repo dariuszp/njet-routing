@@ -1,6 +1,6 @@
 {
     "name": "njet-routing",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "njet-routing - router for any http server",
     "main": "index.js",
     "scripts": {
